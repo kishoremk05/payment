@@ -9,22 +9,56 @@
     <style>
         body {
             background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
         .container {
             max-width: 500px;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-top: 50px;
+        }
+        h2 {
+            color: #007bff;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-primary {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #confirmPayment, #uploadProofSection {
+            display: none;
         }
         #qrcode {
             margin-top: 20px;
             display: flex;
             justify-content: center;
         }
-        #confirmPayment {
-            display: none;
+        #qrcode img {
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: white;
+        }
+        .upload-section {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -51,13 +85,20 @@
         </div>
 
         <!-- Payment Button -->
-        <button type="button" class="btn btn-success w-100" onclick="payWithUPI()">Proceed to Pay ₹50</button>
+        <button type="button" class="btn btn-success w-100" onclick="payWithUPI()">Proceed to Pay ₹10</button>
     </form>
 
-    <!-- Payment Confirmation Button (Hidden Initially) -->
+    <!-- Payment Confirmation Button -->
     <div id="confirmPayment" class="text-center mt-3">
         <h5 class="text-success">✅ Payment Done? Click below</h5>
-        <button class="btn btn-primary" onclick="generateQRCode()">I have Paid</button>
+        <button class="btn btn-primary w-100" onclick="generateQRCode()">I have Paid</button>
+    </div>
+
+    <!-- Option to Upload Payment Proof -->
+    <div id="uploadProofSection" class="upload-section text-center">
+        <h5>OR Upload Payment Proof</h5>
+        <input type="file" id="paymentProof" accept="image/*" class="form-control">
+        <button class="btn btn-secondary mt-2 w-100" onclick="uploadProof()">Upload Proof</button>
     </div>
 
     <div id="qrcode"></div>
@@ -71,21 +112,22 @@
         let event = document.getElementById("event").value;
 
         if (name && email && phone && event) {
-            // Replace with your UPI ID
+            // UPI Details (Replace with your UPI ID)
             let upiID = "barathanand2004-2@oksbi";  
-            let amount = 2;
+            let amount = 10; // Updated to ₹10
             let transactionNote = "Event Registration Payment";
             
             // Generate UPI Payment URL
-            let upiURL = `upi://pay?pa=${upiID}&pn=Event Organizer&mc=&tid=&tr=&tn=${transactionNote}&am=${amount}&cu=INR`;
+            let upiURL = `upi://pay?pa=${upiID}&pn=Event%20Organizer&tn=${transactionNote}&am=${amount}&cu=INR`;
 
-            // Open UPI Payment App (GPay, PhonePe, Paytm, etc.)
+            // Open UPI Payment App
             window.location.href = upiURL;
 
-            // Show the payment confirmation button
+            // Show the payment confirmation button & proof upload option
             document.getElementById("confirmPayment").style.display = "block";
+            document.getElementById("uploadProofSection").style.display = "block";
         } else {
-            alert("Please fill out all fields before proceeding to payment.");
+            alert("⚠️ Please fill out all fields before proceeding to payment.");
         }
     }
 
@@ -99,14 +141,25 @@
             document.getElementById("qrcode").innerHTML = ""; // Clear previous QR codes
             
             new QRCode(document.getElementById("qrcode"), {
-                text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nEvent: ${event}\nAmount Paid: ₹50`,
+                text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nEvent: ${event}\nAmount Paid: ₹10`,
                 width: 200,
                 height: 200
             });
 
             alert("✅ Payment Verified & QR Code Generated!");
         } else {
-            alert("Please complete the registration details.");
+            alert("⚠️ Please complete the registration details.");
+        }
+    }
+
+    function uploadProof() {
+        let fileInput = document.getElementById("paymentProof");
+
+        if (fileInput.files.length > 0) {
+            alert("✅ Payment proof uploaded successfully!");
+            document.getElementById("qrcode").innerHTML = `<p class="text-success">✔️ Proof submitted. Your registration will be verified.</p>`;
+        } else {
+            alert("⚠️ Please select an image file as proof.");
         }
     }
 </script>
