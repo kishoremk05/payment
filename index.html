@@ -54,14 +54,15 @@
         let event = document.getElementById("event").value;
 
         if (name && email && phone && event) {
-            let upiMobile = "9043057100@upi";  // Updated UPI ID (Mobile Number)
+            // Updated UPI ID
+            let upiID = "kishore.m12th@okaxis";  
             let amount = 20;
             let transactionNote = "Event Registration Payment";
+            
+            // Generate UPI Payment URL
+            let upiURL = `upi://pay?pa=${upiID}&pn=Event Organizer&tn=${transactionNote}&am=${amount}&cu=INR`;
 
-            // Generate UPI Payment Link
-            let upiURL = `upi://pay?pa=${upiMobile}&pn=Event Organizer&mc=&tid=&tr=&tn=${transactionNote}&am=${amount}&cu=INR`;
-
-            // Open Google Pay, PhonePe, or Paytm for payment
+            // Open UPI Payment App (GPay, PhonePe, Paytm, etc.)
             window.location.href = upiURL;
         } else {
             alert("Please fill out all fields before proceeding to payment.");
