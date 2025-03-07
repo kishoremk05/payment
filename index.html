@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Registration with Payment</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
@@ -17,14 +16,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-top: 50px;
-        }
-        #qrcode {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        #confirmPayment {
-            display: none;
         }
     </style>
 </head>
@@ -53,14 +44,6 @@
         <!-- Payment Button -->
         <button type="button" class="btn btn-success w-100" onclick="payWithUPI()">Proceed to Pay ₹20</button>
     </form>
-
-    <!-- Payment Confirmation Button (Hidden Initially) -->
-    <div id="confirmPayment" class="text-center mt-3">
-        <h5 class="text-success">✅ Payment Done? Click below</h5>
-        <button class="btn btn-primary" onclick="generateQRCode()">I have Paid</button>
-    </div>
-
-    <div id="qrcode"></div>
 </div>
 
 <script>
@@ -71,42 +54,17 @@
         let event = document.getElementById("event").value;
 
         if (name && email && phone && event) {
-            // Updated UPI Mobile Number
-            let upiMobile = "9043057100@upi";  
+            let upiMobile = "9043057100@upi";  // Updated UPI ID (Mobile Number)
             let amount = 20;
             let transactionNote = "Event Registration Payment";
-            
-            // Generate UPI Payment URL using the mobile number
+
+            // Generate UPI Payment Link
             let upiURL = `upi://pay?pa=${upiMobile}&pn=Event Organizer&mc=&tid=&tr=&tn=${transactionNote}&am=${amount}&cu=INR`;
 
-            // Open UPI Payment App (GPay, PhonePe, Paytm, etc.)
+            // Open Google Pay, PhonePe, or Paytm for payment
             window.location.href = upiURL;
-
-            // Show the payment confirmation button
-            document.getElementById("confirmPayment").style.display = "block";
         } else {
-            alert("⚠️ Please fill out all fields before proceeding to payment.");
-        }
-    }
-
-    function generateQRCode() {
-        let name = document.getElementById("name").value;
-        let email = document.getElementById("email").value;
-        let phone = document.getElementById("phone").value;
-        let event = document.getElementById("event").value;
-
-        if (name && email && phone && event) {
-            document.getElementById("qrcode").innerHTML = ""; // Clear previous QR codes
-            
-            new QRCode(document.getElementById("qrcode"), {
-                text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nEvent: ${event}\nAmount Paid: ₹20`,
-                width: 200,
-                height: 200
-            });
-
-            alert("✅ Payment Verified & QR Code Generated!");
-        } else {
-            alert("⚠️ Please complete the registration details.");
+            alert("Please fill out all fields before proceeding to payment.");
         }
     }
 </script>
