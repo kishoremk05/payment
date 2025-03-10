@@ -1,53 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pay with Google Pay</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .gpay-button {
-            display: inline-block;
-            background-color: #4285F4;
-            color: white;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: inline-block;
-        }
-        .gpay-button img {
-            width: 20px;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-        .qr-code {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pay with Google Pay</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .gpay-button {
+      display: inline-block;
+      background-color: #4285F4;
+      color: white;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .gpay-button img {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    .qr-code {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <h2>Pay ₹10 via Google Pay (Bank Account)</h2>
-    <p>Click the button below to pay ₹10 directly to the bank account</p>
+  <h2>Pay ₹10 via Google Pay (UPI)</h2>
+  <p>Click the button below to pay ₹10 using Google Pay</p>
 
-    <!-- Google Pay Button -->
-    <a class="gpay-button" href="upi://pay?pa=43383815145@SBIN0031760&pn=YourName&am=10&cu=INR">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Google_Pay_Logo.svg" alt="GPay Logo">
-        Pay ₹10 with Google Pay
-    </a>
+  <!-- Google Pay Button -->
+  <a class="gpay-button" href="upi://pay?pa=kishore.m12th@okaxis&pn=Kishore&am=10&cu=INR">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Google_Pay_Logo.svg" alt="GPay Logo">
+    Pay ₹10 with Google Pay
+  </a>
 
-    <!-- UPI QR Code -->
-    <div class="qr-code">
-        <h3>Scan QR Code to Pay ₹10</h3>
-        <img src="your-qr-code.png" width="200px" alt="Scan to Pay via Google Pay">
-    </div>
+  <!-- UPI QR Code -->
+  <div class="qr-code">
+    <h3>Scan QR Code to Pay ₹10</h3>
+    <img src="your-qr-code.png" width="200px" alt="Scan to Pay via Google Pay">
+  </div>
 
 </body>
 </html>
